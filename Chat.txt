@@ -1,0 +1,29 @@
+‏var els = document.querySelector(".N9abW").querySelector("div").querySelectorAll("div.DPiy6");
+‏var currentChat = 0;
+‏var delete_chat = setInterval(() => {
+‏	let id = els[currentChat++].querySelector('a').getAttribute('href').replace('/direct/t/', '');
+‏	var token = '';
+
+‏	for (let val of document.cookie.split('; ')){ 
+‏		if (val.startsWith('csrf')) token = val.replace('csrftoken=', ''); 
+	}
+
+‏	fetch('https://www.instagram.com/direct_v2/web/threads/' + id + '/hide/', {
+‏    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+‏    mode: 'cors', // no-cors, *cors, same-origin
+‏    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+‏    credentials: 'same-origin', // include, *same-origin, omit
+‏    headers: {
+‏      'X-IG-WWW-Claim': 'hmac.AR2ZIRAXgRLd3NBvTv0XICCu4x61etPNlXRRkJWKqJHI21ri',
+‏    'X-Instagram-AJAX': 'f8c34962dc98',
+‏    'Content-Type': 'application/x-www-form-urlencoded',
+‏    'Accept': '*/*',
+‏    'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0.1; Moto G (4)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Mobile Safari/537.36',
+‏    'X-Requested-With': 'XMLHttpRequest',
+‏    'X-CSRFToken': token,
+‏    'X-IG-App-ID': '1217981644879628'
+      
+    },
+  });
+‏	if(currentChat == els.length) clearInterval(delete_chat);
+}, 1000);
